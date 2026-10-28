@@ -14,6 +14,7 @@ GOLD = f"{CATALOG}.{SCHEMA}.zeroops_provider_monthly_gold"
 
 # COMMAND ----------
 
+# DBTITLE 1,Aggregate provider monthly summary
 from pyspark.sql import functions as F
 
 summary = (
@@ -21,8 +22,8 @@ summary = (
     .groupBy("provider_npi", "state", "service_month")
     .agg(
         F.count("*").alias("claim_count"),
-        F.sum("paid_amt").alias("total_paid"),
-        F.avg("paid_amt").alias("avg_paid"),
+        F.sum("paid_amount").alias("total_paid"),
+        F.avg("paid_amount").alias("avg_paid"),
     )
 )
 
